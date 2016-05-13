@@ -2,10 +2,10 @@
 
 var authenticator=require('./index.js').authenticator;
 
-var nya=new authenticator();
+var nya=new authenticator();//one arg can be input to specific the code length
 
 console.log('==============Random test=============');
-var secret=nya.createSecret();
+var secret=nya.createSecret();//
 console.log('secret:',secret);
 
 var code=nya.getCode(secret);
