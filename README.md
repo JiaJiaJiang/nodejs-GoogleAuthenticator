@@ -22,12 +22,14 @@ var googleAuth=require('./nodejs-GoogleAuthenticator').authenticator;
 var nya=new googleAuth();
 ``````
 
-## API
-### `googleAuth([codeLength=6])`
+# API
+## Class:`googleAuth([codeLength=6])`
 验证类
  - codeLength：验证码长度，虽然可以定义，但是并没有什么用，因为目前google身份验证器只支持6位验证码
 
-### `googleAuth.createSecret([secretLength=16])` 
+
+
+## `googleAuth.createSecret([secretLength=16])` 
 创建一个随机秘钥
 > 返回字符串秘钥。
 
@@ -38,7 +40,9 @@ var nya=new googleAuth();
  - secretLength：可选参数，指定生成秘钥的字符数，默认为16。
 
 
-### `googleAuth.getCode(secret[,timeSlice])` 
+
+
+## `googleAuth.getCode(secret[,timeSlice])` 
 获取code
 > 返回字符串验证码
 
@@ -48,7 +52,7 @@ var nya=new googleAuth();
 var code=nya.getCode('一个秘钥',指定时间片);
 ``````
 
-### `googleAuth.verifyCode(secret,code[,discrepancy=1,currentTimeSlice])`
+## `googleAuth.verifyCode(secret,code[,discrepancy=1,currentTimeSlice])`
 验证code是否正确
 > 如果验证通过，返回true，否则false
 
@@ -57,7 +61,7 @@ var code=nya.getCode('一个秘钥',指定时间片);
  - discrepancy：时间误差
  - currentTimeSlice：指定当前时间片
 
-### `googleAuth.getQRCodeGoogleUrl(name,secret[,title])`
+## `googleAuth.getQRCodeGoogleUrl(name,secret[,title])`
 通过google的api获取可以直接用身份验证器扫描的二维码
 > 返回二维码URL
 
