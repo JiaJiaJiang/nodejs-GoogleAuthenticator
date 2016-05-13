@@ -36,10 +36,6 @@ var nya=new googleAuth();
 创建一个随机秘钥
 > 返回字符串秘钥。
 
-`````` 
- var secret=nya.createSecret();
-``````
-
  - secretLength：可选参数，指定生成秘钥的字符数，默认为16。
 
 
@@ -52,9 +48,7 @@ var nya=new googleAuth();
  - secret：秘钥
  - timeSlice：指定时间片
 
-``````
-var code=nya.getCode('一个秘钥',指定时间片);
-``````
+
 
 ## googleAuth.verifyCode(secret,code[,discrepancy=1,currentTimeSlice])
 验证code是否正确
