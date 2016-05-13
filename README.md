@@ -41,7 +41,7 @@ var nya=new googleAuth();
 
 
 
-## googleAuth.getCode(secret[,timeSlice])`
+## googleAuth.getCode(secret[,timeSlice])
 获取code
 > 返回字符串验证码
 
