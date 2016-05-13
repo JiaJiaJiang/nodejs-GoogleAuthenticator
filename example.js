@@ -2,10 +2,10 @@
 
 var authenticator=require('./index.js').authenticator;
 
-var nya=new authenticator();//以code位数为参数new一个验证器，默认为6
+var nya=new authenticator();
 
-console.log('随机密钥测试');
-var secret=nya.createSecret();//可选参数为密钥长度
+console.log('==============Random test=============');
+var secret=nya.createSecret();
 console.log('secret:',secret);
 
 var code=nya.getCode(secret);
@@ -20,6 +20,6 @@ console.log('verify esult of:123456',verifyResult2);
 var QRaddr=nya.getQRCodeGoogleUrl('poi test/'+secret,secret,'poi');
 console.log('QR address:',QRaddr);
 console.log('\n\n');
-console.log('固定密钥测试');
+console.log('================fixed test================');
 console.log('code of QYTACVMTAYCPZDYS',nya.getCode('QYTACVMTAYCPZDYS'));
 console.log('QR of QYTACVMTAYCPZDYS',nya.getQRCodeGoogleUrl('poi test/QYTACVMTAYCPZDYS','QYTACVMTAYCPZDYS','poi'));
