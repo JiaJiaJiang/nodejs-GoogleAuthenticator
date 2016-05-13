@@ -11,12 +11,15 @@
 
 ## 安装
 目前`nodejs-GoogleAuthenticator`不会提交到npm，因此需要使用git拉取
+
 ``````
 git clone https://git.coding.net/luojia/nodejs-GoogleAuthenticator.git
 ``````
+
 把它`clone`到你需要的地方，然后`require`它。
 
 ## 使用
+
 ``````
 var googleAuth=require('./nodejs-GoogleAuthenticator').authenticator;
 var nya=new googleAuth();
@@ -33,7 +36,7 @@ var nya=new googleAuth();
 创建一个随机秘钥
 > 返回字符串秘钥。
 
- `````` 
+`````` 
  var secret=nya.createSecret();
 ``````
 
@@ -48,6 +51,7 @@ var nya=new googleAuth();
 
  - secret：秘钥
  - timeSlice：指定时间片
+
 ``````
 var code=nya.getCode('一个秘钥',指定时间片);
 ``````
