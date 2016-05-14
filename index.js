@@ -102,11 +102,11 @@ class GoogleAuthenticator{
 		if(timeSlice===undefined){
 			timeSlice=Math.floor((new Date())/1000/30);
 		}
-		let secretkey=new Buffer(Base32.decode(secret));
+		let secretkey=new Buffer(Base32.decode(secret),'ascii');
 		let timebuffer=new Buffer(4);
 		timebuffer.writeUInt32BE(timeSlice);
 		let time=Buffer.concat([zeroBuffer,timebuffer]);
-		let hm=crypto.createHmac('sha1',secretkey).update(time).digest();
+		let hm=crypto.createHmac('sha1',secretkey).update(time,'ascii').digest();
 		let offset=hm[hm.length-1]&0x0F;
 		let hashpart=hm.slice(offset,offset+4);
 		let value=(hashpart.readUInt32BE())&0x7FFFFFFF;
@@ -138,20 +138,20 @@ class GoogleAuthenticator{
 }
 
 /*for debug*/
-// function displayCharCode(a){
-// 	if(a instanceof Buffer){
-// 		/*let arr=[];
-// 		for(let i=0;i<a.length;i++){
-// 			arr.push(a[i]);
-// 		}
-// 		console.log(arr.join(','));*/
-// 		console.log(a)
-// 	}else if(typeof a =='string'){
-// 		let arr=[];
-// 		for(let i=0;i<a.length;i++){
-// 			arr.push(a.charCodeAt(i));
-// 		}
-// 		console.log(arr.join(','));
-// 	}
-// }
+/*function displayCharCode(a){
+	if(a instanceof Buffer){
+		let arr=[];
+		for(let i=0;i<a.length;i++){
+			arr.push(a[i]);
+		}
+		console.log(arr.join(','));
+		//onsole.log(a)
+	}else if(typeof a =='string'){
+		let arr=[];
+		for(let i=0;i<a.length;i++){
+			arr.push(a.charCodeAt(i));
+		}
+		console.log(arr.join(','));
+	}
+}*/
 exports.authenticator=GoogleAuthenticator;
