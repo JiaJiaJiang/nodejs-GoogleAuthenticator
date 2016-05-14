@@ -2,10 +2,10 @@
 
 var authenticator=require('./index.js').authenticator;
 
-var nya=new authenticator();//one arg can be input to specific the code length
+var nya=new authenticator();
 
 console.log('==============Random test=============');
-var secret=nya.createSecret();//
+var secret=nya.createSecret(32);
 console.log('secret:',secret);
 
 var code=nya.getCode(secret);
@@ -14,7 +14,7 @@ console.log('code:',code);
 var verifyResult1=nya.verifyCode(secret,code);
 console.log('verify result of:'+code,verifyResult1);
 
-var verifyResult2=nya.verifyCode(secret,123456);
+var verifyResult2=nya.verifyCode(secret,"123456");
 console.log('verify esult of:123456',verifyResult2);
 
 var QRaddr=nya.getQRCodeGoogleUrl('poi test/'+secret,secret,'poi');

@@ -77,6 +77,9 @@ const Base32={
 				binaryString+=((y=String.fromCharCode(cd))||cd==48)?y:"";
 			}
 		}
+		/*if(Base32.encode(binaryString)!=str){
+			console.log('base32 decode error',Base32.encode(binaryString),str);
+		}*/
 		return binaryString;
 	}
 }
@@ -99,12 +102,11 @@ class GoogleAuthenticator{
 		if(timeSlice===undefined){
 			timeSlice=Math.floor((new Date())/1000/30);
 		}
-		let secretkey=Base32.decode(secret);
+		let secretkey=new Buffer(Base32.decode(secret));
 		let timebuffer=new Buffer(4);
 		timebuffer.writeUInt32BE(timeSlice);
 		let time=Buffer.concat([zeroBuffer,timebuffer]);
-		let hmac=crypto.createHmac('sha1',secretkey);
-		let hm=hmac.update(time).digest();
+		let hm=crypto.createHmac('sha1',secretkey).update(time).digest();
 		let offset=hm[hm.length-1]&0x0F;
 		let hashpart=hm.slice(offset,offset+4);
 		let value=(hashpart.readUInt32BE())&0x7FFFFFFF;
@@ -120,6 +122,7 @@ class GoogleAuthenticator{
 		return 'https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl='+urlencoded;
 	}
 	verifyCode(secret,code,discrepancy,currentTimeSlice){
+		(typeof code!=='number')&&(code=code.toString());
 		discrepancy||(discrepancy=1);
 		if(currentTimeSlice===undefined){
 			currentTimeSlice=Math.floor((new Date())/1000/30);
@@ -133,4 +136,22 @@ class GoogleAuthenticator{
 		return false;
 	}
 }
+
+/*for debug*/
+// function displayCharCode(a){
+// 	if(a instanceof Buffer){
+// 		/*let arr=[];
+// 		for(let i=0;i<a.length;i++){
+// 			arr.push(a[i]);
+// 		}
+// 		console.log(arr.join(','));*/
+// 		console.log(a)
+// 	}else if(typeof a =='string'){
+// 		let arr=[];
+// 		for(let i=0;i<a.length;i++){
+// 			arr.push(a.charCodeAt(i));
+// 		}
+// 		console.log(arr.join(','));
+// 	}
+// }
 exports.authenticator=GoogleAuthenticator;
