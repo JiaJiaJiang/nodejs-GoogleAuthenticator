@@ -1,5 +1,7 @@
 #nodejs-GoogleAuthenticator
 
+repository:[https://coding.net/u/luojia/p/nodejs-GoogleAuthenticator/git]()
+
 **Google身份验证器node端**
 
 ## Installation
