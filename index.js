@@ -31,27 +31,6 @@ function randInt(min,max){
 	return (min + Math.random() * (max - min)+0.5)|0;
 }
 const Base32={
-	/*encode:function(str,padding){
-		if(!str)return '';
-		let binaryString='';
-		for (let i = 0;i<str.length;i++) {
-			let bin=str.charCodeAt(i).toString(2);
-			binaryString+=('0'.repeat(8-bin.length)+bin);
-		}
-		let fiveBitBinaryArray=str_split(binaryString,5),base32='';
-		for(let i=0;i<fiveBitBinaryArray.length;i++){
-			let bin=fiveBitBinaryArray[i];
-			base32+=charTable[parseInt(bin+'0'.repeat(5-bin.length),2)];
-		}
-		let x=binaryString.length%40;
-		if (padding && x != 0) {
-			if (x == 8)base32+=charTable[32].repeat(6);
-			else if(x===16)base32+=charTable[32].repeat(4);
-			else if(x===24)base32+=charTable[32].repeat(3);
-			else if(x===32)base32+=charTable[32];
-		}
-		return base32;
-	},*/
 	decode:function(str){
 		if(!str)return '';
 		let paddingMatch=str.match(/\=+$/),
@@ -77,9 +56,6 @@ const Base32={
 				binaryString+=((y=String.fromCharCode(cd))||cd==48)?y:"";
 			}
 		}
-		/*if(Base32.encode(binaryString)!=str){
-			console.log('base32 decode error',Base32.encode(binaryString),str);
-		}*/
 		return binaryString;
 	}
 }
@@ -102,16 +78,16 @@ class GoogleAuthenticator{
 		if(timeSlice===undefined){
 			timeSlice=Math.floor((new Date())/1000/30);
 		}
-		let secretkey=new Buffer(Base32.decode(secret),'ascii');
-		let timebuffer=new Buffer(4);
+		let secretkey=new Buffer(Base32.decode(secret),'ascii'),
+			timebuffer=new Buffer(4);
 		timebuffer.writeUInt32BE(timeSlice);
-		let time=Buffer.concat([zeroBuffer,timebuffer]);
-		let hm=crypto.createHmac('sha1',secretkey).update(time,'ascii').digest();
-		let offset=hm[hm.length-1]&0x0F;
-		let hashpart=hm.slice(offset,offset+4);
-		let value=(hashpart.readUInt32BE())&0x7FFFFFFF;
-		let modulo=Math.pow(10,this.codeLength);
-		let code=(value%modulo).toString();
+		let time=Buffer.concat([zeroBuffer,timebuffer]),
+			hm=crypto.createHmac('sha1',secretkey).update(time,'ascii').digest(),
+			offset=hm[hm.length-1]&0x0F,
+			hashpart=hm.slice(offset,offset+4),
+			value=(hashpart.readUInt32BE())&0x7FFFFFFF,
+			modulo=Math.pow(10,this.codeLength),
+			code=(value%modulo).toString();
 		return '0'.repeat(this.codeLength-code.length)+code;
 	}
 	getQRCodeGoogleUrl(name,secret,title){
