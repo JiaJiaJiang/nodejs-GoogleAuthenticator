@@ -1,5 +1,7 @@
 # nodejs-GoogleAuthenticator
 
+![nodejs-GoogleAuthenticator-logo](https://jiajiajiang.github.io/staticRepo/nodejs-GoogleAuthenticator/logo.png)
+
 ## Installation
 
 ``````
