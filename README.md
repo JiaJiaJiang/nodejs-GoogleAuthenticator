@@ -1,4 +1,4 @@
-#nodejs-GoogleAuthenticator
+# nodejs-GoogleAuthenticator
 
 repository:[https://coding.net/u/luojia/p/nodejs-GoogleAuthenticator/git]()
 
@@ -7,7 +7,7 @@ repository:[https://coding.net/u/luojia/p/nodejs-GoogleAuthenticator/git]()
 ## Installation
 
 ``````
-npm install google_authenticator --save
+npm i google_authenticator --save
 ``````
 
 ## Usage
@@ -52,10 +52,15 @@ verify the code.
  - discrepancy:the allowed time discrepancy.
  - currentTimeSlice:you know.
 
-## googleAuth.getQRCodeGoogleUrl(name,secret[,title])
-get the QR code image using google api.
-> return the url of the image.
+
+## googleAuth.getQRCodeText(name,secret[,title])
+get the QR code raw text
 
  - name:the name to display in the GoogleAuthenticator client.
  - secret:the secret string.
  - title:optional,I can't find if this is displayed anywhere.....
+
+## googleAuth.getGoogleQRCodeAPIUrl(name,secret[,title])
+get the QR code image using google api.
+> return the url of the QR image.
+

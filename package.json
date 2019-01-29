@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.coding.net/luojia/nodejs-GoogleAuthenticator.git"
+    "url": "https://github.com/JiaJiaJiang/nodejs-GoogleAuthenticator"
   },
-  "homepage": "https://coding.net/u/luojia/p/nodejs-GoogleAuthenticator/git",
+  "homepage": "https://github.com/JiaJiaJiang/nodejs-GoogleAuthenticator",
   "keywords": [
     "GoogleAuthenticator"
   ],

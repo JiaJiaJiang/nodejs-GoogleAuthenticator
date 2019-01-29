@@ -1,12 +1,14 @@
-'use strict';
 /*
 	GoogleAuthenticator
 	@author 	luojia@luojia.me
-	@copyright 	since 2016
+	@copyright 	2016
 	@license 	MTI
 	@link 		http://luojia.me
 	@refer to 	https://github.com/PHPGangsta/GoogleAuthenticator
 */
+
+'use strict';
+
 const crypto = require('crypto');
 const charTable=[
 	'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
@@ -90,12 +92,15 @@ class GoogleAuthenticator{
 			code=(value%modulo).toString();
 		return '0'.repeat(this.codeLength-code.length)+code;
 	}
-	getQRCodeGoogleUrl(name,secret,title){
+	getQRCodeText(name,secret,title){
 		let urlencoded=encodeURI(`otpauth://totp/${name}?secret=${secret}`);
 		if(title){
 			urlencoded+=encodeURI('&issuer='+encodeURI(title));
 		}
-		return 'https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl='+urlencoded;
+		return urlencoded;
+	}
+	getGoogleQRCodeAPIUrl(name,secret,title){
+		return 'https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl='+this.getQRCodeText(name,secret,title);
 	}
 	verifyCode(secret,code,discrepancy,currentTimeSlice){
 		(typeof code!=='number')&&(code=code.toString());
