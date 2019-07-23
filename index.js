@@ -62,7 +62,7 @@ const Base32={
 	}
 }
 
-const zeroBuffer=new Buffer([0,0,0,0]);
+const zeroBuffer=Buffer.from([0,0,0,0]);
 
 class GoogleAuthenticator{
 	constructor(codeLength){
@@ -80,8 +80,8 @@ class GoogleAuthenticator{
 		if(timeSlice===undefined){
 			timeSlice=Math.floor((new Date())/1000/30);
 		}
-		let secretkey=new Buffer(Base32.decode(secret),'ascii'),
-			timebuffer=new Buffer(4);
+		let secretkey=Buffer.from(Base32.decode(secret),'ascii'),
+			timebuffer=Buffer.allocUnsafe(4);
 		timebuffer.writeUInt32BE(timeSlice);
 		let time=Buffer.concat([zeroBuffer,timebuffer]),
 			hm=crypto.createHmac('sha1',secretkey).update(time,'ascii').digest(),

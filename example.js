@@ -15,7 +15,7 @@ var verifyResult1=nya.verifyCode(secret,code);
 console.log('verify result of:'+code,verifyResult1);
 
 var verifyResult2=nya.verifyCode(secret,"123456");
-console.log('verify esult of:123456',verifyResult2);
+console.log('verify result of:123456',verifyResult2);
 
 var QRaddr=nya.getGoogleQRCodeAPIUrl('poi test/'+secret,secret,'poi');
 console.log('QR address:',QRaddr);
