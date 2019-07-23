@@ -93,14 +93,14 @@ class GoogleAuthenticator{
 		return '0'.repeat(this.codeLength-code.length)+code;
 	}
 	getQRCodeText(name,secret,title){
-		let urlencoded=encodeURI(`otpauth://totp/${name}?secret=${secret}`);
+		let urlencoded=`otpauth://totp/${name}?secret=${secret}`;
 		if(title){
-			urlencoded+=encodeURI('&issuer='+encodeURI(title));
+			urlencoded+=`&issuer=${title}`;
 		}
-		return urlencoded;
+		return encodeURI(urlencoded);
 	}
 	getGoogleQRCodeAPIUrl(name,secret,title){
-		return 'https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl='+this.getQRCodeText(name,secret,title);
+		return 'https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl='+encodeURIComponent(this.getQRCodeText(name,secret,title));
 	}
 	verifyCode(secret,code,discrepancy,currentTimeSlice){
 		(typeof code!=='number')&&(code=code.toString());
