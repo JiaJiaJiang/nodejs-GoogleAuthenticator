@@ -4,7 +4,7 @@ var authenticator=require('./index.js').authenticator;
 var nya=new authenticator();
 var secretLnegth=32;
 var secret=nya.createSecret(secretLnegth);
-var url=nya.getQRCodeGoogleUrl('random/code',secret,'test');
+var url=nya.getGoogleQRCodeAPIUrl('random/code',secret,'test');
 
 function refresh(){
 	console.log(Date());
