@@ -62,7 +62,7 @@ const Base32={
 	}
 }
 
-const zeroBuffer=new Buffer([0,0,0,0]);
+const zeroBuffer=Buffer.from([0,0,0,0]);
 
 class GoogleAuthenticator{
 	constructor(codeLength){
@@ -80,8 +80,8 @@ class GoogleAuthenticator{
 		if(timeSlice===undefined){
 			timeSlice=Math.floor((new Date())/1000/30);
 		}
-		let secretkey=new Buffer(Base32.decode(secret),'ascii'),
-			timebuffer=new Buffer(4);
+		let secretkey=Buffer.from(Base32.decode(secret),'ascii'),
+			timebuffer=Buffer.allocUnsafe(4);
 		timebuffer.writeUInt32BE(timeSlice);
 		let time=Buffer.concat([zeroBuffer,timebuffer]),
 			hm=crypto.createHmac('sha1',secretkey).update(time,'ascii').digest(),
@@ -93,14 +93,14 @@ class GoogleAuthenticator{
 		return '0'.repeat(this.codeLength-code.length)+code;
 	}
 	getQRCodeText(name,secret,title){
-		let urlencoded=encodeURI(`otpauth://totp/${name}?secret=${secret}`);
+		let urlencoded=`otpauth://totp/${name}?secret=${secret}`;
 		if(title){
-			urlencoded+=encodeURI('&issuer='+encodeURI(title));
+			urlencoded+=`&issuer=${title}`;
 		}
-		return urlencoded;
+		return encodeURI(urlencoded);
 	}
 	getGoogleQRCodeAPIUrl(name,secret,title){
-		return 'https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl='+this.getQRCodeText(name,secret,title);
+		return 'https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl='+encodeURIComponent(this.getQRCodeText(name,secret,title));
 	}
 	verifyCode(secret,code,discrepancy,currentTimeSlice){
 		(typeof code!=='number')&&(code=code.toString());
