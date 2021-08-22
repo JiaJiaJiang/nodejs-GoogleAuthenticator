@@ -1,10 +1,9 @@
 {
   "name": "google_authenticator",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "GoogleAuthenticator",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/JiaJiaJiang/nodejs-GoogleAuthenticator"
