@@ -2,9 +2,8 @@
   "name": "google_authenticator",
   "version": "1.0.8",
   "description": "GoogleAuthenticator",
-  "main": " ",
+  "main": "index.js",
   "scripts": {
-    "test": " "
   },
   "repository": {
     "type": "git",
